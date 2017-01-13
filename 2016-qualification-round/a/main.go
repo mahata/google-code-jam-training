@@ -14,16 +14,16 @@ import (
 // Condition: len(s) >= 1
 func evalUniqueness(s string, idx int) int {
 	uniqueness := 1
-	if idx > 0 {
-		if s[idx-1] != s[idx] {
-			uniqueness++
-		}
+	if idx > 0 && s[idx-1] != s[idx] {
+		uniqueness++
 	}
-	if idx < len(s)-1 {
-		if s[idx+1] != s[idx] {
-			uniqueness++
-		}
+	if idx < len(s)-1 && s[idx+1] != s[idx] {
+		uniqueness++
 	}
+	if idx > 0 && idx < len(s)-1 && s[idx-1] == s[idx+1] && uniqueness > 1 {
+		uniqueness--
+	}
+
 	return uniqueness
 }
 
