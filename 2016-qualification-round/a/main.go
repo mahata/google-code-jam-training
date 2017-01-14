@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"math/big"
 	"os"
 	"strings"
 )
@@ -32,16 +33,16 @@ func main() {
 	_, _ = reader.ReadString('\n') // Discard first line
 
 	for i := 1; ; i++ {
-		uniqueness := 1
+		uniqueness := big.NewInt(1)
+
 		text, err := reader.ReadString('\n')
 		text = strings.TrimRight(text, "\n")
 		if err != nil {
-			// fmt.Println("Reached to EOF")
 			break
 		}
 		for j := 0; j < len(text); j++ {
-			uniqueness *= evalUniqueness(text, j)
+			uniqueness.Mul(uniqueness, big.NewInt(int64(evalUniqueness(text, j))))
 		}
-		fmt.Printf("Case #%d: %d\n", i, uniqueness)
+		fmt.Printf("Case #%d: %d\n", i, big.NewInt(0).Mod(uniqueness, big.NewInt(int64(1000000007))))
 	}
 }
