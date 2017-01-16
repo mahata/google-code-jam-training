@@ -1,10 +1,5 @@
 #!/usr/bin/env python3
 
-N = 2  # candidates for each position
-K = 3  # target value
-
-input_data = [[0, 0], [2, 0], [0, 0], [0, 1]]
-
 
 def create_combinations(N):
     llst = [[]]
@@ -28,5 +23,21 @@ def is_xor_value_ok(K, combination, input_data):
         return False
 
 
-combinations = create_combinations(N)
-print([True for combination in combinations if is_xor_value_ok(K, combination, input_data)])
+input()  # Discard first input
+case_count = 1
+while True:
+    try:
+        N, K = [int(x) for x in input().split(" ")]
+        input_data = [
+            [int(x) for x in input().split(" ")],
+            [int(x) for x in input().split(" ")],
+            [int(x) for x in input().split(" ")],
+            [int(x) for x in input().split(" ")]]
+
+        combinations = create_combinations(N)
+        count = len([True for combination in combinations if is_xor_value_ok(K, combination, input_data)])
+        print("Case #{}: {}".format(case_count, count))
+        case_count += 1
+
+    except EOFError:
+        break
